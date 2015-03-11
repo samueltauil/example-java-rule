@@ -16,14 +16,24 @@ public class MyCustomRuleProvider extends WindupRuleProvider {
 		return ConfigurationBuilder.begin()
 		        .addRule()
 		        .when(
-		            JavaClass.references("weblogic.ejb.GenericMessageDrivenBean").at(TypeReferenceLocation.IMPORT)
+		            JavaClass.references("weblogic.ejb.GenericMessageDrivenBean").at(TypeReferenceLocation.INHERITANCE)
 		        )
 		        .perform(
-		            Hint.withText("WebLogic Server Generic Bean Template")
+		            Hint.withText("WebLogic Server Generic Bean Template Inheritance")
 		               .with(Link.to("Message Driven Bean", "https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.2/html/Development_Guide/Create_a_JMS-based_Message-Driven_Bean_in_JBoss_Developer_Studio.html"))
 		               .withEffort(5)
-		               .and(Classification.as("Remove the WebLogic generic Message Driven Bean template.").withEffort(5))
-		        );
+		               .and(Classification.as("Remove the WebLogic generic Message Driven Bean template inheritance."))
+		        )
+		        .addRule()
+		        .when(
+		        	JavaClass.references("weblogic.ejb.GenericMessageDrivenBean").at(TypeReferenceLocation.IMPORT)
+		        )
+		        .perform(
+		        		 Hint.withText("WebLogic Server Generic Bean Template Import")
+			               .with(Link.to("Message Driven Bean", "https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.2/html/Development_Guide/Create_a_JMS-based_Message-Driven_Bean_in_JBoss_Developer_Studio.html"))
+			               .withEffort(2)
+			               .and(Classification.as("Remove the WebLogic generic Message Driven Bean template import.")));
+		        
 	}
 	
 	
